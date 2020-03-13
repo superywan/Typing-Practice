@@ -6,7 +6,7 @@ const givenTxt = document.getElementById("givenTxt");
 const userInput = document.getElementById("userInput");
 
 //Word Maker (100 words)
-const wordList = randomWords(300);
+const wordList = randomWords({ exactly: 300, maxLength: 4 });
 //Timer Variables
 let count = 30;
 let didTimeEnd = false;
@@ -19,8 +19,6 @@ let i = 0;
 
 // Type Writer
 function typeWriter() {
-  didPracticeStart = true;
-  console.log("didPracticeStart: " + didPracticeStart);
   correctChecker();
   // Empty the txtarea and move on to the next word.
   userInput.value = "";
@@ -47,11 +45,13 @@ function correctChecker() {
 
 // Timer
 let timer = setInterval(() => {
-  document.getElementById("count").innerHTML = count;
-  count--;
-  if (count === 0) {
-    clearInterval(timer);
-    didTimeEnd = true;
+  if (didPracticeStart === true) {
+    document.getElementById("count").innerHTML = count;
+    count--;
+    if (count === 0) {
+      clearInterval(timer);
+      didTimeEnd = true;
+    }
   }
 }, 1000);
 
@@ -59,10 +59,12 @@ let timer = setInterval(() => {
 userInput.addEventListener("keydown", function(e) {
   //checks whether the pressed key is "Enter"
   if (e.keyCode === 13) {
+    didPracticeStart = true;
     if (didTimeEnd) {
+      console.log("didTimeEnd: " + didTimeEnd);
       document.getElementById("count").innerHTML = "Done";
       correctChecker();
-      wpm = correctCounter / 0.5;
+      wpm = correctCounter * 2;
       document.getElementById("result").innerHTML = wpm;
       return;
     }

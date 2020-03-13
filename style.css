@@ -5,6 +5,7 @@ body {
 
 h1 {
   text-align: center;
+  font-size: 50px;
 }
 
 #main {
@@ -17,4 +18,16 @@ h1 {
   width: 300px;
   font-size: 20px;
   text-align: center;
+}
+
+#givenTxt {
+  font-size: 30px;
+}
+
+#count {
+  color: #b22222;
+}
+
+#result {
+  font-size: 20px;
 }
