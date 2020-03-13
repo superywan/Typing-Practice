@@ -1,22 +1,12 @@
+var randomWords = require("random-words");
+
 const givenTxt = document.getElementById("givenTxt");
 const userInput = document.getElementById("userInput");
 const howManyCorrect = document.getElementById("howManyCorrect");
 
-const wordList = [
-  "jazz",
-  "jizz",
-  "fizz",
-  "fuzz",
-  "hizz",
-  "wazz",
-  "bazz",
-  "buzz",
-  "mezz",
-  "quiz"
-];
+const wordList = randomWords(10);
 
 let counter = 0;
-let didEnd = false;
 let correctCounter = 0;
 let i = 0;
 
@@ -48,7 +38,7 @@ userInput.addEventListener("keydown", function(e) {
     // If Counter is over the length of wordList exit the function.
     if (counter >= wordList.length - 1) {
       correctChecker();
-      givenTxt.innerText = "--done--";
+      givenTxt.innerText = "--done---";
       return;
     }
     typeWriter();
