@@ -1,29 +1,26 @@
+// npm packages
 var randomWords = require("random-words");
 
+//DOM
 const givenTxt = document.getElementById("givenTxt");
 const userInput = document.getElementById("userInput");
-const howManyCorrect = document.getElementById("howManyCorrect");
 
-const wordList = randomWords(10);
-
+//Word Maker (100 words)
+const wordList = randomWords(300);
+//Timer Variables
+let count = 30;
+let didTimeEnd = false;
+let didPracticeStart = false;
+let wpm = 0;
+//Correct
 let counter = 0;
 let correctCounter = 0;
 let i = 0;
 
-function correctChecker() {
-  // Check User typed correctly..
-  if (givenTxt.innerText === userInput.value) {
-    if (counter != 0) {
-      console.log("Correct!");
-      correctCounter++;
-      howManyCorrect.innerHTML = correctCounter;
-    }
-  } else {
-    console.log("You suck!");
-  }
-}
-
+// Type Writer
 function typeWriter() {
+  didPracticeStart = true;
+  console.log("didPracticeStart: " + didPracticeStart);
   correctChecker();
   // Empty the txtarea and move on to the next word.
   userInput.value = "";
@@ -32,13 +29,41 @@ function typeWriter() {
   counter += 1;
 }
 
+// Correct Checker
+function correctChecker() {
+  // Check User typed correctly..
+  if (givenTxt.innerText === userInput.value) {
+    if (counter != 0) {
+      // Correct! and add 1 to correct counter.
+      console.log("Correct!");
+      correctCounter++;
+      console.log(correctCounter);
+    }
+  } else {
+    // You Suck!
+    console.log("You suck!");
+  }
+}
+
+// Timer
+let timer = setInterval(() => {
+  document.getElementById("count").innerHTML = count;
+  count--;
+  if (count === 0) {
+    clearInterval(timer);
+    didTimeEnd = true;
+  }
+}, 1000);
+
+// When User Pressed Enter, Run this.
 userInput.addEventListener("keydown", function(e) {
   //checks whether the pressed key is "Enter"
   if (e.keyCode === 13) {
-    // If Counter is over the length of wordList exit the function.
-    if (counter >= wordList.length - 1) {
+    if (didTimeEnd) {
+      document.getElementById("count").innerHTML = "Done";
       correctChecker();
-      givenTxt.innerText = "--done---";
+      wpm = correctCounter / 0.5;
+      document.getElementById("result").innerHTML = wpm;
       return;
     }
     typeWriter();
