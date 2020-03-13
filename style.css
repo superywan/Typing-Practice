@@ -1,0 +1,20 @@
+body {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+#main {
+  margin: auto;
+  max-width: 1000px;
+  text-align: center;
+}
+
+#userInput {
+  width: 300px;
+  font-size: 20px;
+  text-align: center;
+}
