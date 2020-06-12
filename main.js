@@ -56,7 +56,7 @@ let timer = setInterval(() => {
 }, 1000);
 
 // When User Pressed Enter, Run this.
-userInput.addEventListener("keydown", function(e) {
+userInput.addEventListener("keydown", function (e) {
   //checks whether the pressed key is "Enter"
   if (e.keyCode === 13) {
     didPracticeStart = true;
